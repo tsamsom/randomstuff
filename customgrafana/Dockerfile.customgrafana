@@ -1,0 +1,11 @@
+FROM grafana/grafana:latest
+
+#RUN apk update && apk add ca-certificates && rm -rf /var/cache/apk/*
+
+COPY ./cp-root-int.crt ./cp-root.crt /usr/local/share/ca-certificates/
+COPY ./credentials /usr/share/\.aws/.
+
+USER root
+RUN chown grafana:0 /usr/share/grafana/\.aws/credentials && "update-ca-certificates" 
+USER grafana
+#RUN "grafana-cli plugins install grafana-timestream-datasource"
