@@ -2,12 +2,14 @@ version: '2'
 
 services:
     grafana:
-        image: grafana/grafana:latest
+        build:
+            context: .
+            dockerfile: customgrafana.Dockerfile
+        image: customgrafana
         ports:
             - 3000:3000
         volumes:
             - grafana-storage:/var/lib/grafana
             - ./workdir:/home/grafana
-
 volumes:
     grafana-storage:
